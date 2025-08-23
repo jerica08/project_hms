@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist Dashboard - HMS</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="pharmacy-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-pills"></i> HMS - Pharmacy</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">PH</div>
+                <div>
+                    <div style="font-weight: 600;">Dr. Rachel Thompson</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Clinical Pharmacist</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#prescriptions" class="nav-link">
+                        <i class="fas fa-prescription nav-icon"></i>
+                        Prescription Queue
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#inventory" class="nav-link">
+                        <i class="fas fa-boxes nav-icon"></i>
+                        Inventory Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#dispensing" class="nav-link">
+                        <i class="fas fa-hand-holding-medical nav-icon"></i>
+                        Medication Dispensing
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#drug-interactions" class="nav-link">
+                        <i class="fas fa-exclamation-triangle nav-icon"></i>
+                        Drug Interactions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#controlled-substances" class="nav-link">
+                        <i class="fas fa-lock nav-icon"></i>
+                        Controlled Substances
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reports" class="nav-link">
+                        <i class="fas fa-chart-bar nav-icon"></i>
+                        Pharmacy Reports
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <h1 class="page-title">Pharmacy Dashboard</h1>
+
+            <!-- Dashboard Overview Cards -->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-prescription"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Prescription Queue</h3>
+                            <p class="card-content">Pending prescriptions</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">34</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Priority</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">22</div>
+                            <div class="stat-label">Routine</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-danger">Process Priority</a>
+                        <a href="#" class="btn btn-primary">View Queue</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Inventory Status</h3>
+                            <p class="card-content">Stock levels and alerts</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">847</div>
+                            <div class="stat-label">Items</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">23</div>
+                            <div class="stat-label">Low Stock</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Expired</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-warning">Check Low Stock</a>
+                        <a href="#" class="btn btn-danger">Remove Expired</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-hand-holding-medical"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Dispensed Today</h3>
+                            <p class="card-content">Medications dispensed</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">156</div>
+                            <div class="stat-label">Total</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">142</div>
+                            <div class="stat-label">Outpatient</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">14</div>
+                            <div class="stat-label">Inpatient</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-success">Dispense Medication</a>
+                        <a href="#" class="btn btn-secondary">View History</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Drug Interactions</h3>
+                            <p class="card-content">Safety alerts</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Alerts</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Critical</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Moderate</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-danger">Review Critical</a>
+                        <a href="#" class="btn btn-warning">Check All</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Critical Drug Interaction Alerts -->
+            <div class="table-container">
+                <h3 style="margin-bottom: 1.5rem; color: #f56565;">
+                    <i class="fas fa-exclamation-triangle"></i> Critical Drug Interaction Alerts
+                </h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Prescribed Drug</th>
+                            <th>Interacting Drug</th>
+                            <th>Severity</th>
+                            <th>Effect</th>
+                            <th>Prescriber</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>John Martinez</strong></td>
+                            <td>Warfarin 5mg</td>
+                            <td>Aspirin 325mg</td>
+                            <td><span class="badge badge-danger">Critical</span></td>
+                            <td>Increased bleeding risk</td>
+                            <td>Dr. Johnson</td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Contact MD</a></td>
+                        </tr>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>Sarah Wilson</strong></td>
+                            <td>Digoxin 0.25mg</td>
+                            <td>Furosemide 40mg</td>
+                            <td><span class="badge badge-danger">Critical</span></td>
+                            <td>Digoxin toxicity</td>
+                            <td>Dr. Smith</td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Contact MD</a></td>
+                        </tr>
+                        <tr style="background: #feebc8;">
+                            <td><strong>Robert Chen</strong></td>
+                            <td>Metformin 500mg</td>
+                            <td>Contrast Dye</td>
+                            <td><span class="badge badge-warning">Moderate</span></td>
+                            <td>Lactic acidosis risk</td>
+                            <td>Dr. Brown</td>
+                            <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Monitor</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Prescription Processing Queue -->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Prescription Processing Queue</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Rx Number</th>
+                            <th>Patient</th>
+                            <th>Medication</th>
+                            <th>Quantity</th>
+                            <th>Prescriber</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>RX-2025-001</strong></td>
+                            <td>Maria Garcia</td>
+                            <td>Lisinopril 10mg</td>
+                            <td>30 tablets</td>
+                            <td>Dr. Wilson</td>
+                            <td><span class="badge badge-danger">STAT</span></td>
+                            <td><span class="badge badge-warning">Verifying</span></td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Process</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>RX-2025-002</strong></td>
+                            <td>David Lee</td>
+                            <td>Metformin 500mg</td>
+                            <td>60 tablets</td>
+                            <td>Dr. Martinez</td>
+                            <td><span class="badge badge-info">Routine</span></td>
+                            <td><span class="badge badge-info">Queued</span></td>
+                            <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Start</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>RX-2025-003</strong></td>
+                            <td>Lisa Anderson</td>
+                            <td>Atorvastatin 20mg</td>
+                            <td>30 tablets</td>
+                            <td>Dr. Lee</td>
+                            <td><span class="badge badge-warning">Priority</span></td>
+                            <td><span class="badge badge-success">Ready</span></td>
+                            <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Dispense</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>RX-2025-004</strong></td>
+                            <td>James Brown</td>
+                            <td>Insulin Glargine</td>
+                            <td>1 vial</td>
+                            <td>Dr. Davis</td>
+                            <td><span class="badge badge-danger">STAT</span></td>
+                            <td><span class="badge badge-warning">Processing</span></td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Continue</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Inventory Management and Controlled Substances -->
+            <div class="dashboard-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Low Stock Alerts</h3>
+                            <p class="card-content">Items requiring reorder</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
+                            <strong>Critical:</strong> Epinephrine 1mg/mL - 2 vials left
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
+                            <strong>Low:</strong> Amoxicillin 500mg - 45 capsules
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; border-left: 4px solid #ed8936;">
+                            <strong>Low:</strong> Ibuprofen 600mg - 78 tablets
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-danger">Order Critical</a>
+                        <a href="#" class="btn btn-warning">Reorder All</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Controlled Substances</h3>
+                            <p class="card-content">Schedule II-V tracking</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Morphine 10mg</span>
+                                <span>47 tablets</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Oxycodone 5mg</span>
+                                <span>23 tablets</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Lorazepam 1mg</span>
+                                <span>156 tablets</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Adderall 20mg</span>
+                                <span>89 tablets</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">Count Audit</a>
+                        <a href="#" class="btn btn-secondary">DEA Report</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-times"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Expiration Tracking</h3>
+                            <p class="card-content">Medications nearing expiry</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
+                            <strong>Expired:</strong> Nitroglycerin 0.4mg - Exp: 08/15/25
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
+                            <strong>30 Days:</strong> Insulin Lispro - Exp: 09/20/25
+                        </div>
+                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
+                            <strong>90 Days:</strong> Cephalexin 500mg - Exp: 11/18/25
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-danger">Remove Expired</a>
+                        <a href="#" class="btn btn-warning">Return to Vendor</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patient Counseling Queue -->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Patient Counseling Required</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Medication</th>
+                            <th>Reason</th>
+                            <th>Priority</th>
+                            <th>Pickup Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jennifer Wilson</td>
+                            <td>Warfarin 5mg</td>
+                            <td>New medication</td>
+                            <td><span class="badge badge-danger">High</span></td>
+                            <td>10:30 AM</td>
+                            <td><span class="badge badge-warning">Waiting</span></td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Counsel</a></td>
+                        </tr>
+                        <tr>
+                            <td>Thomas Anderson</td>
+                            <td>Metformin 500mg</td>
+                            <td>Dosage change</td>
+                            <td><span class="badge badge-warning">Medium</span></td>
+                            <td>11:00 AM</td>
+                            <td><span class="badge badge-info">Scheduled</span></td>
+                            <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Schedule</a></td>
+                        </tr>
+                        <tr>
+                            <td>Patricia Martinez</td>
+                            <td>Insulin Pen</td>
+                            <td>Device training</td>
+                            <td><span class="badge badge-danger">High</span></td>
+                            <td>11:15 AM</td>
+                            <td><span class="badge badge-warning">Waiting</span></td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Counsel</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.php';
+            }
+        });
+
+        // Drug interaction alerts
+        document.querySelectorAll('.btn-danger').forEach(btn => {
+            if(btn.textContent.includes('Contact MD')) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Critical drug interaction alert sent to prescribing physician! Please follow up immediately.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

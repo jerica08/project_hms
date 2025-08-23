@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Dashboard Portal</title>
+    <link rel="stylesheet" href="assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .portal-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            padding: 3rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .portal-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .portal-title {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .portal-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .role-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .role-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .role-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .role-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .role-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .role-features li {
+            padding: 0.3rem 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .role-features li::before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .admin-theme .role-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .doctor-theme .role-icon { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .nurse-theme .role-icon { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+        .receptionist-theme .role-icon { background: linear-gradient(135deg, #4299e1, #3182ce); }
+        .lab-theme .role-icon { background: linear-gradient(135deg, #9f7aea, #805ad5); }
+        .pharmacy-theme .role-icon { background: linear-gradient(135deg, #38b2ac, #319795); }
+        .accountant-theme .role-icon { background: linear-gradient(135deg, #f56565, #e53e3e); }
+        .it-theme .role-icon { background: linear-gradient(135deg, #4a5568, #2d3748); }
+
+        .system-info {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .system-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .portal-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .portal-title {
+                font-size: 2rem;
+            }
+            
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-container">
+        <div class="portal-header">
+            <h1 class="portal-title">
+                <i class="fas fa-hospital"></i> Hospital Management System
+            </h1>
+            <p class="portal-subtitle">
+                Select your role to access your personalized dashboard
+            </p>
+        </div>
+
+        <div class="roles-grid">
+            <a href="dashboards/admin-dashboard.html" class="role-card admin-theme">
+                <div class="role-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3 class="role-title">Hospital Administrator</h3>
+                <p class="role-description">Full system control with comprehensive management capabilities</p>
+                <ul class="role-features">
+                    <li>User management and role assignment</li>
+                    <li>Branch integration and monitoring</li>
+                    <li>System analytics and reporting</li>
+                    <li>Security and access control</li>
+                </ul>
+            </a>
+
+            <a href="dashboards/doctor-dashboard.html" class="role-card doctor-theme">
+                <div class="role-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3 class="role-title">Doctor</h3>
+                <p class="role-description">Access patient records, create prescriptions, and manage treatments</p>
+                <ul class="role-features">
+                    <li>Electronic Health Records (EHR)</li>
+                    <li>Prescription management</li>
+                    <li>Patient appointment scheduling</li>
+                    <li>Lab results and diagnostics</li>
+                </ul>
+            </a>
+
+            <a href="dashboards/nurse-dashboard.html" class="role-card nurse-theme">
+                <div class="role-icon">
+                    <i class="fas fa-user-nurse"></i>
+                </div>
+                <h3 class="role-title">Nurse</h3>
+                <p class="role-description">Patient monitoring, medication administration, and treatment updates</p>
+                <ul class="role-features">
+                    <li>Patient vital signs monitoring</li>
+                    <li>Medication administration</li>
+                    <li>Treatment plan updates</li>
+                    <li>Patient care coordination</li>
+                </ul>
+            </a>
+
+            <a href="dashboards/receptionist-dashboard.html" class="role-card receptionist-theme">
+                <div class="role-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3 class="role-title">Receptionist</h3>
+                <p class="role-description">Patient registration, appointment booking, and front desk operations</p>
+                <ul class="role-features">
+                    <li>Patient registration and check-in</li>
+                    <li>Appointment scheduling</li>
+                    <li>Insurance verification</li>
+                    <li>Waiting room management</li>
+                </ul>
+            </a>
+
+            <a href="dashboards/lab-dashboard.html" class="role-card lab-theme">
+                <div class="role-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3 class="role-title">Laboratory Staff</h3>
+                <p class="role-description">Test management, sample tracking, and results processing</p>
+                <ul class="role-features">
+                    <li>Test request management</li>
+                    <li>Sample tracking and processing</li>
+                    <li>Equipment monitoring</li>
+                    <li>Quality control procedures</li>
+                </ul>
+            </a>
+
+            <a href="dashboards/pharmacist-dashboard.html" class="role-card pharmacy-theme">
+                <div class="role-icon">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <h3 class="role-title">Pharmacist</h3>
+                <p class="role-description">Medication dispensing, inventory control, and drug interaction monitoring</p>
+                <ul class="role-features">
+                    <li>Prescription processing</li>
+                    <li>Inventory management</li>
+                    <li>Drug interaction screening</li>
+                    <li>Controlled substance tracking</li>
+                </ul>
+            </a>
+
+            <a href="dashboards/accountant-dashboard.html" class="role-card accountant-theme">
+                <div class="role-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3 class="role-title">Accountant</h3>
+                <p class="role-description">Financial management, billing, and insurance claims processing</p>
+                <ul class="role-features">
+                    <li>Patient billing and invoicing</li>
+                    <li>Payment processing</li>
+                    <li>Insurance claims management</li>
+                    <li>Financial reporting</li>
+                </ul>
+            </a>
+
+            <a href="dashboards/it-dashboard.html" class="role-card it-theme">
+                <div class="role-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3 class="role-title">IT Staff</h3>
+                <p class="role-description">System maintenance, security monitoring, and technical support</p>
+                <ul class="role-features">
+                    <li>System monitoring and maintenance</li>
+                    <li>Security management</li>
+                    <li>Data backup and recovery</li>
+                    <li>User support and troubleshooting</li>
+                </ul>
+            </a>
+        </div>
+
+        <div class="system-info">
+            <h3 style="text-align: center; margin-bottom: 2rem; color: #333;">
+                <i class="fas fa-star"></i> System Features
+            </h3>
+            <div class="system-features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <strong>Role-Based Access Control</strong><br>
+                        <small>Secure access based on user roles and permissions</small>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <strong>Multi-Branch Integration</strong><br>
+                        <small>Centralized system connecting all hospital branches</small>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <strong>Real-time Analytics</strong><br>
+                        <small>Live reporting and dashboard analytics</small>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div>
+                        <strong>Mobile Responsive</strong><br>
+                        <small>Access from any device, anywhere</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add hover effects and click animations
+        document.querySelectorAll('.role-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            card.addEventListener('click', function(e) {
+                // Add a brief animation before navigation
+                this.style.transform = 'translateY(-5px) scale(0.98)';
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 150);
+                e.preventDefault();
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.role-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

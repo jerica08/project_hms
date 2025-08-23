@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Integration - HMS Admin</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .branch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .branch-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #3b82f6;
+        }
+        .branch-card.offline {
+            border-left-color: #ef4444;
+        }
+        .branch-card.warning {
+            border-left-color: #f59e0b;
+        }
+        .branch-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .branch-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .status-online { color: #22c55e; }
+        .status-offline { color: #ef4444; }
+        .status-warning { color: #f59e0b; }
+        .sync-progress {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+        .sync-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .sync-complete { background: #22c55e; }
+        .sync-partial { background: #f59e0b; }
+        .sync-failed { background: #ef4444; }
+        .branch-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .btn-sync { background: #3b82f6; color: white; }
+        .btn-config { background: #6b7280; color: white; }
+        .btn-logs { background: #f59e0b; color: white; }
+        .sync-controls {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .data-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table-header {
+            background: #f8fafc;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="admin-theme">
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i> HMS - Branch Integration</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <div>
+                    <div style="font-weight: 600;">Dr. Admin Smith</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Hospital Administrator</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-user-management.html" class="nav-link">
+                        <i class="fas fa-users nav-icon"></i>
+                        User Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-branch-integration.html" class="nav-link active">
+                        <i class="fas fa-network-wired nav-icon"></i>
+                        Branch Integration
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar nav-icon"></i>
+                        Analytics & Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-system-settings.html" class="nav-link">
+                        <i class="fas fa-cogs nav-icon"></i>
+                        System Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-security.html" class="nav-link">
+                        <i class="fas fa-shield-alt nav-icon"></i>
+                        Security & Access
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-audit-logs.html" class="nav-link">
+                        <i class="fas fa-clipboard-list nav-icon"></i>
+                        Audit Logs
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1 class="page-title">Branch Integration Management</h1>
+
+            <!-- Branch Status Overview -->
+            <div class="dashboard-grid" style="margin-bottom: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-building"></i></div>
+                        <div>
+                            <h3 class="card-title">Total Branches</h3>
+                            <p class="card-content">Connected facilities</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #3b82f6; text-align: center; padding: 1rem;">5</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <h3 class="card-title">Online Branches</h3>
+                            <p class="card-content">Currently active</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #22c55e; text-align: center; padding: 1rem;">4</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-sync"></i></div>
+                        <div>
+                            <h3 class="card-title">Sync Status</h3>
+                            <p class="card-content">Data synchronization</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #f59e0b; text-align: center; padding: 1rem;">98%</div>
+                </div>
+            </div>
+
+            <!-- Sync Controls -->
+            <div class="sync-controls">
+                <h3 style="margin-bottom: 1rem;">Global Sync Controls</h3>
+                <div class="control-grid">
+                    <button class="btn btn-primary" onclick="syncAllBranches()">
+                        <i class="fas fa-sync"></i> Sync All Branches
+                    </button>
+                    <button class="btn btn-warning" onclick="forceSyncAll()">
+                        <i class="fas fa-exclamation-triangle"></i> Force Sync All
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportSyncReport()">
+                        <i class="fas fa-download"></i> Export Sync Report
+                    </button>
+                    <button class="btn btn-success" onclick="addNewBranch()">
+                        <i class="fas fa-plus"></i> Add New Branch
+                    </button>
+                </div>
+            </div>
+
+            <!-- Branch Cards -->
+            <div class="branch-grid">
+                <div class="branch-card">
+                    <div class="branch-header">
+                        <h3>Main Hospital</h3>
+                        <div class="branch-status">
+                            <i class="fas fa-circle status-online"></i>
+                            <span>Online</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                            <span>Data Sync Progress</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="sync-progress">
+                            <div class="sync-bar sync-complete" style="width: 100%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #6b7280;">
+                            <div>Last Sync: 2 minutes ago</div>
+                            <div>Location: Downtown Campus</div>
+                            <div>IP: 192.168.1.10</div>
+                        </div>
+                    </div>
+                    <div class="branch-actions">
+                        <button class="action-btn btn-sync" onclick="syncBranch('main')">
+                            <i class="fas fa-sync"></i> Sync
+                        </button>
+                        <button class="action-btn btn-config" onclick="configureBranch('main')">
+                            <i class="fas fa-cog"></i> Config
+                        </button>
+                        <button class="action-btn btn-logs" onclick="viewLogs('main')">
+                            <i class="fas fa-file-alt"></i> Logs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="branch-card">
+                    <div class="branch-header">
+                        <h3>North Branch</h3>
+                        <div class="branch-status">
+                            <i class="fas fa-circle status-online"></i>
+                            <span>Online</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                            <span>Data Sync Progress</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="sync-progress">
+                            <div class="sync-bar sync-partial" style="width: 95%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #6b7280;">
+                            <div>Last Sync: 15 minutes ago</div>
+                            <div>Location: North District</div>
+                            <div>IP: 192.168.2.10</div>
+                        </div>
+                    </div>
+                    <div class="branch-actions">
+                        <button class="action-btn btn-sync" onclick="syncBranch('north')">
+                            <i class="fas fa-sync"></i> Sync
+                        </button>
+                        <button class="action-btn btn-config" onclick="configureBranch('north')">
+                            <i class="fas fa-cog"></i> Config
+                        </button>
+                        <button class="action-btn btn-logs" onclick="viewLogs('north')">
+                            <i class="fas fa-file-alt"></i> Logs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="branch-card warning">
+                    <div class="branch-header">
+                        <h3>South Branch</h3>
+                        <div class="branch-status">
+                            <i class="fas fa-circle status-warning"></i>
+                            <span>Warning</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                            <span>Data Sync Progress</span>
+                            <span>78%</span>
+                        </div>
+                        <div class="sync-progress">
+                            <div class="sync-bar sync-partial" style="width: 78%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #6b7280;">
+                            <div>Last Sync: 2 hours ago</div>
+                            <div>Location: South District</div>
+                            <div>IP: 192.168.3.10</div>
+                        </div>
+                    </div>
+                    <div class="branch-actions">
+                        <button class="action-btn btn-sync" onclick="syncBranch('south')">
+                            <i class="fas fa-sync"></i> Sync
+                        </button>
+                        <button class="action-btn btn-config" onclick="configureBranch('south')">
+                            <i class="fas fa-cog"></i> Config
+                        </button>
+                        <button class="action-btn btn-logs" onclick="viewLogs('south')">
+                            <i class="fas fa-file-alt"></i> Logs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="branch-card offline">
+                    <div class="branch-header">
+                        <h3>Emergency Clinic</h3>
+                        <div class="branch-status">
+                            <i class="fas fa-circle status-offline"></i>
+                            <span>Offline</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                            <span>Data Sync Progress</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="sync-progress">
+                            <div class="sync-bar sync-failed" style="width: 0%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #6b7280;">
+                            <div>Last Sync: 6 hours ago</div>
+                            <div>Location: Emergency Center</div>
+                            <div>IP: 192.168.4.10</div>
+                        </div>
+                    </div>
+                    <div class="branch-actions">
+                        <button class="action-btn btn-sync" onclick="syncBranch('emergency')">
+                            <i class="fas fa-sync"></i> Retry
+                        </button>
+                        <button class="action-btn btn-config" onclick="configureBranch('emergency')">
+                            <i class="fas fa-cog"></i> Config
+                        </button>
+                        <button class="action-btn btn-logs" onclick="viewLogs('emergency')">
+                            <i class="fas fa-file-alt"></i> Logs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="branch-card">
+                    <div class="branch-header">
+                        <h3>Specialty Center</h3>
+                        <div class="branch-status">
+                            <i class="fas fa-circle status-online"></i>
+                            <span>Online</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                            <span>Data Sync Progress</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="sync-progress">
+                            <div class="sync-bar sync-complete" style="width: 100%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #6b7280;">
+                            <div>Last Sync: 5 minutes ago</div>
+                            <div>Location: Medical Plaza</div>
+                            <div>IP: 192.168.5.10</div>
+                        </div>
+                    </div>
+                    <div class="branch-actions">
+                        <button class="action-btn btn-sync" onclick="syncBranch('specialty')">
+                            <i class="fas fa-sync"></i> Sync
+                        </button>
+                        <button class="action-btn btn-config" onclick="configureBranch('specialty')">
+                            <i class="fas fa-cog"></i> Config
+                        </button>
+                        <button class="action-btn btn-logs" onclick="viewLogs('specialty')">
+                            <i class="fas fa-file-alt"></i> Logs
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Sync Activities -->
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Recent Sync Activities</h3>
+                    <button class="btn btn-secondary" onclick="refreshActivities()">
+                        <i class="fas fa-refresh"></i> Refresh
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Branch</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                            <th>Data Size</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:15 AM</td>
+                            <td>Main Hospital</td>
+                            <td>Auto Sync</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                            <td>2.3 MB</td>
+                            <td>45s</td>
+                        </tr>
+                        <tr>
+                            <td>09:00 AM</td>
+                            <td>North Branch</td>
+                            <td>Manual Sync</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                            <td>1.8 MB</td>
+                            <td>32s</td>
+                        </tr>
+                        <tr>
+                            <td>08:45 AM</td>
+                            <td>Emergency Clinic</td>
+                            <td>Auto Sync</td>
+                            <td><span class="badge badge-danger">Failed</span></td>
+                            <td>0 MB</td>
+                            <td>Timeout</td>
+                        </tr>
+                        <tr>
+                            <td>08:30 AM</td>
+                            <td>South Branch</td>
+                            <td>Force Sync</td>
+                            <td><span class="badge badge-warning">Partial</span></td>
+                            <td>1.2 MB</td>
+                            <td>2m 15s</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function syncBranch(branchId) {
+            alert(`Syncing ${branchId} branch...`);
+        }
+
+        function configureBranch(branchId) {
+            alert(`Opening configuration for ${branchId} branch...`);
+        }
+
+        function viewLogs(branchId) {
+            alert(`Viewing logs for ${branchId} branch...`);
+        }
+
+        function syncAllBranches() {
+            if(confirm('Sync all branches? This may take several minutes.')) {
+                alert('Starting sync for all branches...');
+            }
+        }
+
+        function forceSyncAll() {
+            if(confirm('Force sync all branches? This will override any pending operations.')) {
+                alert('Force syncing all branches...');
+            }
+        }
+
+        function exportSyncReport() {
+            alert('Exporting sync report...');
+        }
+
+        function addNewBranch() {
+            alert('Opening new branch configuration...');
+        }
+
+        function refreshActivities() {
+            alert('Refreshing activity log...');
+        }
+
+        // Auto-refresh branch status every 30 seconds
+        setInterval(() => {
+            console.log('Auto-refreshing branch status...');
+        }, 30000);
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.php';
+            }
+        });
+    </script>
+</body>
+</html>

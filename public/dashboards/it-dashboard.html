@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Staff Dashboard - HMS</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="it-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-server"></i> HMS - IT Operations</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">IT</div>
+                <div>
+                    <div style="font-weight: 600;">David Kim</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">System Administrator</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#system-monitoring" class="nav-link">
+                        <i class="fas fa-desktop nav-icon"></i>
+                        System Monitoring
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#security" class="nav-link">
+                        <i class="fas fa-shield-alt nav-icon"></i>
+                        Security Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#backups" class="nav-link">
+                        <i class="fas fa-database nav-icon"></i>
+                        Data Backups
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#maintenance" class="nav-link">
+                        <i class="fas fa-tools nav-icon"></i>
+                        System Maintenance
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#user-support" class="nav-link">
+                        <i class="fas fa-headset nav-icon"></i>
+                        User Support
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#network" class="nav-link">
+                        <i class="fas fa-network-wired nav-icon"></i>
+                        Network Status
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <h1 class="page-title">IT Operations Dashboard</h1>
+
+            <!-- Dashboard Overview Cards -->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">System Status</h3>
+                            <p class="card-content">Overall system health</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">98.7%</div>
+                            <div class="stat-label">Uptime</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Servers Online</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Alerts</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-success">System Health</a>
+                        <a href="#" class="btn btn-warning">View Alerts</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Security Status</h3>
+                            <p class="card-content">System security monitoring</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">247</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Failed Logins</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Breaches</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">Security Audit</a>
+                        <a href="#" class="btn btn-danger">Incident Response</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Data Backups</h3>
+                            <p class="card-content">Backup status and schedule</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2.3TB</div>
+                            <div class="stat-label">Last Backup</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Days Retained</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-success">Run Backup</a>
+                        <a href="#" class="btn btn-secondary">Restore Data</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Support Tickets</h3>
+                            <p class="card-content">User support requests</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Open</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Critical</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">45</div>
+                            <div class="stat-label">Resolved Today</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-danger">Critical Issues</a>
+                        <a href="#" class="btn btn-primary">View Queue</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Critical System Alerts -->
+            <div class="table-container">
+                <h3 style="margin-bottom: 1.5rem; color: #f56565;">
+                    <i class="fas fa-exclamation-triangle"></i> Critical System Alerts
+                </h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>System</th>
+                            <th>Alert Type</th>
+                            <th>Severity</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>08:45 AM</strong></td>
+                            <td>Database Server 2</td>
+                            <td>High CPU Usage</td>
+                            <td><span class="badge badge-danger">Critical</span></td>
+                            <td>CPU usage at 95% for 10+ minutes</td>
+                            <td><span class="badge badge-warning">Investigating</span></td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Resolve</a></td>
+                        </tr>
+                        <tr style="background: #feebc8;">
+                            <td><strong>08:30 AM</strong></td>
+                            <td>Branch Network</td>
+                            <td>Connection Timeout</td>
+                            <td><span class="badge badge-warning">High</span></td>
+                            <td>Branch 3 connection intermittent</td>
+                            <td><span class="badge badge-info">Monitoring</span></td>
+                            <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Server Status Monitoring -->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Server Status Monitoring</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Server</th>
+                            <th>Status</th>
+                            <th>CPU Usage</th>
+                            <th>Memory Usage</th>
+                            <th>Disk Usage</th>
+                            <th>Uptime</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Web Server 1</strong></td>
+                            <td><span class="badge badge-success">Online</span></td>
+                            <td>45%</td>
+                            <td>67%</td>
+                            <td>23%</td>
+                            <td>15 days</td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Monitor</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database Server 1</strong></td>
+                            <td><span class="badge badge-success">Online</span></td>
+                            <td>32%</td>
+                            <td>78%</td>
+                            <td>45%</td>
+                            <td>22 days</td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Monitor</a></td>
+                        </tr>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>Database Server 2</strong></td>
+                            <td><span class="badge badge-warning">Warning</span></td>
+                            <td>95%</td>
+                            <td>89%</td>
+                            <td>67%</td>
+                            <td>8 days</td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Investigate</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backup Server</strong></td>
+                            <td><span class="badge badge-success">Online</span></td>
+                            <td>15%</td>
+                            <td>34%</td>
+                            <td>78%</td>
+                            <td>45 days</td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Monitor</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- IT Operations and Support -->
+            <div class="dashboard-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Network Status</h3>
+                            <p class="card-content">Network performance metrics</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Main Network</span>
+                                <span class="badge badge-success">Optimal</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Branch Networks</span>
+                                <span class="badge badge-warning">Degraded</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Internet Connection</span>
+                                <span class="badge badge-success">Stable</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>VPN Connections</span>
+                                <span class="badge badge-success">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">Network Diagnostics</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Scheduled Maintenance</h3>
+                            <p class="card-content">Upcoming maintenance tasks</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #4299e1;">
+                            <strong>Tonight:</strong> Database backup and optimization
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
+                            <strong>Tomorrow:</strong> Security patches deployment
+                        </div>
+                        <div style="padding: 0.8rem; background: #c6f6d5; border-radius: 5px; border-left: 4px solid #48bb78;">
+                            <strong>Weekend:</strong> Server hardware upgrade
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">Schedule Task</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Quick Actions</h3>
+                            <p class="card-content">Common IT tasks</p>
+                        </div>
+                    </div>
+                    <div class="quick-actions" style="flex-direction: column; gap: 0.8rem;">
+                        <a href="#" class="btn btn-danger" style="width: 100%;">
+                            <i class="fas fa-exclamation-triangle"></i> Emergency Response
+                        </a>
+                        <a href="#" class="btn btn-warning" style="width: 100%;">
+                            <i class="fas fa-server"></i> Restart Services
+                        </a>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-database"></i> Run Backup
+                        </a>
+                        <a href="#" class="btn btn-success" style="width: 100%;">
+                            <i class="fas fa-user-plus"></i> Create User Account
+                        </a>
+                        <a href="#" class="btn btn-secondary" style="width: 100%;">
+                            <i class="fas fa-chart-line"></i> System Report
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Ticket Queue -->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Active Support Tickets</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ticket #</th>
+                            <th>User</th>
+                            <th>Department</th>
+                            <th>Issue Type</th>
+                            <th>Priority</th>
+                            <th>Created</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>IT-2025-001</strong></td>
+                            <td>Dr. Johnson</td>
+                            <td>Cardiology</td>
+                            <td>System Access</td>
+                            <td><span class="badge badge-danger">Critical</span></td>
+                            <td>08:30 AM</td>
+                            <td><span class="badge badge-warning">In Progress</span></td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Resolve</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>IT-2025-002</strong></td>
+                            <td>Nurse Mary</td>
+                            <td>ICU</td>
+                            <td>Printer Issue</td>
+                            <td><span class="badge badge-warning">High</span></td>
+                            <td>08:45 AM</td>
+                            <td><span class="badge badge-info">Assigned</span></td>
+                            <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Start</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>IT-2025-003</strong></td>
+                            <td>Jessica Martinez</td>
+                            <td>Reception</td>
+                            <td>Software Update</td>
+                            <td><span class="badge badge-info">Medium</span></td>
+                            <td>09:00 AM</td>
+                            <td><span class="badge badge-info">Open</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Assign</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>IT-2025-004</strong></td>
+                            <td>Dr. Chen</td>
+                            <td>Laboratory</td>
+                            <td>Network Connectivity</td>
+                            <td><span class="badge badge-warning">High</span></td>
+                            <td>09:15 AM</td>
+                            <td><span class="badge badge-success">Resolved</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Close</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.php';
+            }
+        });
+
+        // Emergency response button
+        document.querySelector('.btn-danger').addEventListener('click', function(e) {
+            if(this.textContent.includes('Emergency')) {
+                e.preventDefault();
+                alert('Emergency IT response protocol activated! All critical systems being monitored.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS Login - Hospital Management System</title>
+    <link rel="stylesheet" href="assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .login-form-section {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-info-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .info-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .info-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .info-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .info-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-features i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .demo-credentials {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .demo-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        .demo-list li {
+            padding: 0.3rem 0;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+            
+            .login-info-section {
+                order: -1;
+                padding: 2rem;
+            }
+            
+            .login-form-section {
+                padding: 2rem;
+            }
+            
+            .info-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form-section">
+            <div class="login-title">
+                <i class="fas fa-hospital"></i> HMS Login
+            </div>
+            <p class="login-subtitle">Access your personalized dashboard</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-input" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="role">Role</label>
+                    <select id="role" class="form-select" required>
+                        <option value="">Select your role</option>
+                        <option value="admin">Hospital Administrator</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="receptionist">Receptionist</option>
+                        <option value="lab">Laboratory Staff</option>
+                        <option value="pharmacist">Pharmacist</option>
+                        <option value="accountant">Accountant</option>
+                        <option value="it">IT Staff</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                </button>
+            </form>
+        </div>
+        
+        <div class="login-info-section">
+            <h2 class="info-title">Welcome to HMS</h2>
+            <p class="info-description">
+                Comprehensive Hospital Management System with role-based access control and real-time monitoring.
+            </p>
+            
+            <ul class="info-features">
+                <li><i class="fas fa-shield-alt"></i> Secure Role-Based Access</li>
+                <li><i class="fas fa-network-wired"></i> Multi-Branch Integration</li>
+                <li><i class="fas fa-chart-line"></i> Real-time Analytics</li>
+                <li><i class="fas fa-mobile-alt"></i> Mobile Responsive</li>
+            </ul>
+            
+            <div class="demo-credentials">
+                <div class="demo-title">
+                    <i class="fas fa-key"></i> Demo Credentials
+                </div>
+                <ul class="demo-list">
+                    <li><strong>Username:</strong> demo</li>
+                    <li><strong>Password:</strong> demo123</li>
+                    <li><strong>Any Role:</strong> Select from dropdown</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            
+            // Simple demo authentication
+            if (username === 'demo' && password === 'demo123' && role) {
+                // Store user info in sessionStorage
+                sessionStorage.setItem('hms_user', JSON.stringify({
+                    username: username,
+                    role: role,
+                    loginTime: new Date().toISOString()
+                }));
+                
+                // Redirect to appropriate dashboard
+                const dashboardMap = {
+                    'admin': 'dashboards/admin-dashboard.html',
+                    'doctor': 'dashboards/doctor-dashboard.html',
+                    'nurse': 'dashboards/nurse-dashboard.html',
+                    'receptionist': 'dashboards/receptionist-dashboard.html',
+                    'lab': 'dashboards/lab-dashboard.html',
+                    'pharmacist': 'dashboards/pharmacist-dashboard.html',
+                    'accountant': 'dashboards/accountant-dashboard.html',
+                    'it': 'dashboards/it-dashboard.html'
+                };
+                
+                window.location.href = dashboardMap[role];
+            } else {
+                alert('Invalid credentials. Please use demo/demo123 and select a role.');
+            }
+        });
+
+        // Add input animations
+        document.querySelectorAll('.form-input, .form-select').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateX(5px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>

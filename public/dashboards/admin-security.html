@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security & Access - HMS Admin</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .security-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .security-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .security-metric:last-child {
+            border-bottom: none;
+        }
+        .metric-label {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        .metric-value {
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+        .metric-good { background: #dcfce7; color: #166534; }
+        .metric-warning { background: #fef3c7; color: #92400e; }
+        .metric-danger { background: #fecaca; color: #991b1b; }
+        .access-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table-header {
+            background: #f8fafc;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .permission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .permission-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .permission-icon {
+            font-size: 2rem;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+        .permission-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .permission-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .security-alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #ef4444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #991b1b;
+            margin-bottom: 0.5rem;
+        }
+        .alert-content {
+            color: #7f1d1d;
+            font-size: 0.9rem;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+        .login-attempt {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .login-attempt:last-child {
+            border-bottom: none;
+        }
+        .attempt-status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .status-success { background: #dcfce7; color: #166534; }
+        .status-failed { background: #fecaca; color: #991b1b; }
+        .status-blocked { background: #fed7cc; color: #c2410c; }
+        .ip-address {
+            font-family: monospace;
+            background: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body class="admin-theme">
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i> HMS - Security & Access</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <div>
+                    <div style="font-weight: 600;">Dr. Admin Smith</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Hospital Administrator</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-user-management.html" class="nav-link">
+                        <i class="fas fa-users nav-icon"></i>
+                        User Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar nav-icon"></i>
+                        Analytics & Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-system-settings.html" class="nav-link">
+                        <i class="fas fa-cogs nav-icon"></i>
+                        System Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-security.html" class="nav-link active">
+                        <i class="fas fa-shield-alt nav-icon"></i>
+                        Security & Access
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-audit-logs.html" class="nav-link">
+                        <i class="fas fa-clipboard-list nav-icon"></i>
+                        Audit Logs
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1 class="page-title">Security & Access Control</h1>
+
+            <!-- Security Alerts -->
+            <div class="security-alert">
+                <div class="alert-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Security Alert</span>
+                </div>
+                <div class="alert-content">
+                    3 failed login attempts detected from IP 192.168.1.100 in the last hour. Consider blocking this IP address.
+                </div>
+            </div>
+
+            <!-- Security Overview -->
+            <div class="dashboard-grid" style="margin-bottom: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-shield-check"></i></div>
+                        <div>
+                            <h3 class="card-title">Security Score</h3>
+                            <p class="card-content">Overall system security</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #22c55e; text-align: center; padding: 1rem;">98.5%</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-users-shield"></i></div>
+                        <div>
+                            <h3 class="card-title">Active Sessions</h3>
+                            <p class="card-content">Current user sessions</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #3b82f6; text-align: center; padding: 1rem;">156</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-ban"></i></div>
+                        <div>
+                            <h3 class="card-title">Blocked IPs</h3>
+                            <p class="card-content">Suspicious IP addresses</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #ef4444; text-align: center; padding: 1rem;">7</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-key"></i></div>
+                        <div>
+                            <h3 class="card-title">2FA Enabled</h3>
+                            <p class="card-content">Users with 2FA</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #f59e0b; text-align: center; padding: 1rem;">89%</div>
+                </div>
+            </div>
+
+            <div class="security-grid">
+                <!-- Security Metrics -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Security Metrics</div>
+                        </div>
+                    </div>
+
+                    <div class="security-metric">
+                        <div class="metric-label">Password Strength</div>
+                        <div class="metric-value metric-good">Strong</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Failed Login Attempts (24h)</div>
+                        <div class="metric-value metric-warning">12</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">SSL Certificate</div>
+                        <div class="metric-value metric-good">Valid</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Firewall Status</div>
+                        <div class="metric-value metric-good">Active</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Vulnerability Scan</div>
+                        <div class="metric-value metric-good">Clean</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="runSecurityScan()">
+                            <i class="fas fa-search"></i> Security Scan
+                        </button>
+                        <button class="btn btn-warning btn-small" onclick="generateSecurityReport()">
+                            <i class="fas fa-file-alt"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Access Permissions -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-user-lock"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Access Permissions</div>
+                        </div>
+                    </div>
+
+                    <div class="permission-grid">
+                        <div class="permission-card">
+                            <div class="permission-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="permission-title">Admin Access</div>
+                            <div class="permission-count">3</div>
+                        </div>
+                        <div class="permission-card">
+                            <div class="permission-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="permission-title">Medical Staff</div>
+                            <div class="permission-count">89</div>
+                        </div>
+                        <div class="permission-card">
+                            <div class="permission-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="permission-title">Support Staff</div>
+                            <div class="permission-count">64</div>
+                        </div>
+                        <div class="permission-card">
+                            <div class="permission-icon">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                            <div class="permission-title">Temporary Access</div>
+                            <div class="permission-count">12</div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="managePermissions()">
+                            <i class="fas fa-cog"></i> Manage Permissions
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="reviewAccess()">
+                            <i class="fas fa-eye"></i> Review Access
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Login Security -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Login Security</div>
+                        </div>
+                    </div>
+
+                    <div class="security-metric">
+                        <div class="metric-label">Two-Factor Authentication</div>
+                        <div class="metric-value metric-warning">89% Enabled</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Password Expiry Policy</div>
+                        <div class="metric-value metric-good">90 Days</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Account Lockout</div>
+                        <div class="metric-value metric-good">5 Attempts</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Session Timeout</div>
+                        <div class="metric-value metric-good">30 Minutes</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="configureLoginSecurity()">
+                            <i class="fas fa-cog"></i> Configure
+                        </button>
+                        <button class="btn btn-warning btn-small" onclick="force2FA()">
+                            <i class="fas fa-mobile-alt"></i> Force 2FA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Network Security -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Network Security</div>
+                        </div>
+                    </div>
+
+                    <div class="security-metric">
+                        <div class="metric-label">Firewall Status</div>
+                        <div class="metric-value metric-good">Active</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Intrusion Detection</div>
+                        <div class="metric-value metric-good">Enabled</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">VPN Connections</div>
+                        <div class="metric-value metric-good">23 Active</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">DDoS Protection</div>
+                        <div class="metric-value metric-good">Active</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="configureFirewall()">
+                            <i class="fas fa-shield-alt"></i> Configure Firewall
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="viewNetworkLogs()">
+                            <i class="fas fa-list"></i> Network Logs
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Login Attempts -->
+            <div class="access-table">
+                <div class="table-header">
+                    <h3>Recent Login Attempts</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-secondary btn-small" onclick="refreshLoginAttempts()">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
+                        <button class="btn btn-warning btn-small" onclick="blockSuspiciousIPs()">
+                            <i class="fas fa-ban"></i> Block Suspicious
+                        </button>
+                    </div>
+                </div>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Dr. John Smith</strong><br>
+                            <small>john.smith@hospital.com</small>
+                        </div>
+                        <div class="ip-address">192.168.1.45</div>
+                        <div>2 minutes ago</div>
+                        <div class="attempt-status status-success">Success</div>
+                    </div>
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Unknown User</strong><br>
+                            <small>admin@fake.com</small>
+                        </div>
+                        <div class="ip-address">203.45.67.89</div>
+                        <div>5 minutes ago</div>
+                        <div class="attempt-status status-failed">Failed</div>
+                    </div>
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Mary Johnson</strong><br>
+                            <small>mary.johnson@hospital.com</small>
+                        </div>
+                        <div class="ip-address">192.168.1.67</div>
+                        <div>8 minutes ago</div>
+                        <div class="attempt-status status-success">Success</div>
+                    </div>
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Blocked User</strong><br>
+                            <small>hacker@malicious.com</small>
+                        </div>
+                        <div class="ip-address">45.123.67.89</div>
+                        <div>12 minutes ago</div>
+                        <div class="attempt-status status-blocked">Blocked</div>
+                    </div>
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Sarah Brown</strong><br>
+                            <small>sarah.brown@hospital.com</small>
+                        </div>
+                        <div class="ip-address">192.168.1.89</div>
+                        <div>15 minutes ago</div>
+                        <div class="attempt-status status-success">Success</div>
+                    </div>
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Unknown User</strong><br>
+                            <small>test@test.com</small>
+                        </div>
+                        <div class="ip-address">203.45.67.89</div>
+                        <div>18 minutes ago</div>
+                        <div class="attempt-status status-failed">Failed</div>
+                    </div>
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Robert Wilson</strong><br>
+                            <small>robert.wilson@hospital.com</small>
+                        </div>
+                        <div class="ip-address">192.168.1.123</div>
+                        <div>22 minutes ago</div>
+                        <div class="attempt-status status-success">Success</div>
+                    </div>
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Unknown User</strong><br>
+                            <small>root@system.com</small>
+                        </div>
+                        <div class="ip-address">203.45.67.89</div>
+                        <div>25 minutes ago</div>
+                        <div class="attempt-status status-failed">Failed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blocked IPs Table -->
+            <div class="access-table" style="margin-top: 2rem;">
+                <div class="table-header">
+                    <h3>Blocked IP Addresses</h3>
+                    <button class="btn btn-primary btn-small" onclick="addBlockedIP()">
+                        <i class="fas fa-plus"></i> Block IP
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>IP Address</th>
+                            <th>Reason</th>
+                            <th>Blocked Date</th>
+                            <th>Attempts</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ip-address">203.45.67.89</td>
+                            <td>Multiple failed login attempts</td>
+                            <td>Today, 2:30 PM</td>
+                            <td>15</td>
+                            <td>
+                                <button class="btn btn-success btn-small" onclick="unblockIP('203.45.67.89')">
+                                    <i class="fas fa-unlock"></i> Unblock
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ip-address">45.123.67.89</td>
+                            <td>Suspicious activity</td>
+                            <td>Yesterday, 11:45 AM</td>
+                            <td>8</td>
+                            <td>
+                                <button class="btn btn-success btn-small" onclick="unblockIP('45.123.67.89')">
+                                    <i class="fas fa-unlock"></i> Unblock
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ip-address">78.90.123.45</td>
+                            <td>Brute force attack</td>
+                            <td>2 days ago</td>
+                            <td>25</td>
+                            <td>
+                                <button class="btn btn-success btn-small" onclick="unblockIP('78.90.123.45')">
+                                    <i class="fas fa-unlock"></i> Unblock
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function runSecurityScan() {
+            if(confirm('Run a comprehensive security scan? This may take several minutes.')) {
+                alert('Security scan started...');
+            }
+        }
+
+        function generateSecurityReport() {
+            alert('Generating security report...');
+        }
+
+        function managePermissions() {
+            alert('Opening permission management interface...');
+        }
+
+        function reviewAccess() {
+            alert('Opening access review panel...');
+        }
+
+        function configureLoginSecurity() {
+            alert('Opening login security configuration...');
+        }
+
+        function force2FA() {
+            if(confirm('Force 2FA for all users? Users without 2FA will be required to set it up on next login.')) {
+                alert('2FA enforcement enabled for all users');
+            }
+        }
+
+        function configureFirewall() {
+            alert('Opening firewall configuration...');
+        }
+
+        function viewNetworkLogs() {
+            alert('Opening network security logs...');
+        }
+
+        function refreshLoginAttempts() {
+            alert('Refreshing login attempts...');
+        }
+
+        function blockSuspiciousIPs() {
+            if(confirm('Block all IPs with multiple failed attempts?')) {
+                alert('Suspicious IPs have been blocked');
+            }
+        }
+
+        function addBlockedIP() {
+            const ip = prompt('Enter IP address to block:');
+            if(ip) {
+                alert(`IP ${ip} has been blocked`);
+            }
+        }
+
+        function unblockIP(ip) {
+            if(confirm(`Unblock IP address ${ip}?`)) {
+                alert(`IP ${ip} has been unblocked`);
+            }
+        }
+
+        // Auto-refresh security data every 30 seconds
+        setInterval(() => {
+            console.log('Auto-refreshing security data...');
+        }, 30000);
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.php';
+            }
+        });
+    </script>
+</body>
+</html>

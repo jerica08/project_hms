@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Dashboard - HMS</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="nurse-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-user-nurse"></i> HMS - Nurse Station</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">RN</div>
+                <div>
+                    <div style="font-weight: 600;">Nurse Mary Williams</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Registered Nurse - ICU</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#patient-monitoring" class="nav-link">
+                        <i class="fas fa-heartbeat nav-icon"></i>
+                        Patient Monitoring
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#medication" class="nav-link">
+                        <i class="fas fa-pills nav-icon"></i>
+                        Medication Administration
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#treatment-updates" class="nav-link">
+                        <i class="fas fa-clipboard-check nav-icon"></i>
+                        Treatment Updates
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#vital-signs" class="nav-link">
+                        <i class="fas fa-thermometer-half nav-icon"></i>
+                        Vital Signs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#patient-care" class="nav-link">
+                        <i class="fas fa-hand-holding-medical nav-icon"></i>
+                        Patient Care Plans
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#shift-reports" class="nav-link">
+                        <i class="fas fa-file-medical-alt nav-icon"></i>
+                        Shift Reports
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <h1 class="page-title">Nurse Dashboard</h1>
+
+            <!-- Dashboard Overview Cards -->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Assigned Patients</h3>
+                            <p class="card-content">Current patient load</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Total</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Critical</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Stable</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">View All</a>
+                        <a href="#" class="btn btn-danger">Critical First</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Medication Schedule</h3>
+                            <p class="card-content">Due medications</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Due Now</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Next Hour</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">Today</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-warning">Administer</a>
+                        <a href="#" class="btn btn-secondary">Schedule</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Vital Signs</h3>
+                            <p class="card-content">Monitoring status</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label">Due</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Abnormal</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-success">Record Vitals</a>
+                        <a href="#" class="btn btn-warning">Check Abnormal</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Treatment Updates</h3>
+                            <p class="card-content">Care plan progress</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Overdue</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">Update Care</a>
+                        <a href="#" class="btn btn-danger">View Overdue</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Critical Patients Alert -->
+            <div class="table-container">
+                <h3 style="margin-bottom: 1.5rem; color: #f56565;">
+                    <i class="fas fa-exclamation-triangle"></i> Critical Patients Requiring Immediate Attention
+                </h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room</th>
+                            <th>Patient</th>
+                            <th>Condition</th>
+                            <th>Last Vitals</th>
+                            <th>Alert Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>ICU-101</strong></td>
+                            <td>John Martinez</td>
+                            <td>Post-Op Cardiac</td>
+                            <td>BP: 180/110, HR: 120</td>
+                            <td><span class="badge badge-danger">High BP</span></td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Respond</a></td>
+                        </tr>
+                        <tr style="background: #feebc8;">
+                            <td><strong>ICU-103</strong></td>
+                            <td>Sarah Thompson</td>
+                            <td>Respiratory Distress</td>
+                            <td>O2 Sat: 88%, RR: 28</td>
+                            <td><span class="badge badge-warning">Low O2</span></td>
+                            <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check</a></td>
+                        </tr>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>ICU-105</strong></td>
+                            <td>Robert Chen</td>
+                            <td>Sepsis</td>
+                            <td>Temp: 102.5°F, HR: 135</td>
+                            <td><span class="badge badge-danger">Fever</span></td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Respond</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Medication Administration Schedule -->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Medication Administration - Next 2 Hours</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Patient</th>
+                            <th>Room</th>
+                            <th>Medication</th>
+                            <th>Dosage</th>
+                            <th>Route</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>09:00 AM</strong></td>
+                            <td>Lisa Anderson</td>
+                            <td>201</td>
+                            <td>Metoprolol</td>
+                            <td>50mg</td>
+                            <td>PO</td>
+                            <td><span class="badge badge-danger">Overdue</span></td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Administer</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>09:15 AM</strong></td>
+                            <td>David Wilson</td>
+                            <td>203</td>
+                            <td>Insulin</td>
+                            <td>10 units</td>
+                            <td>SC</td>
+                            <td><span class="badge badge-warning">Due</span></td>
+                            <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Prepare</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>09:30 AM</strong></td>
+                            <td>Maria Garcia</td>
+                            <td>205</td>
+                            <td>Furosemide</td>
+                            <td>40mg</td>
+                            <td>IV</td>
+                            <td><span class="badge badge-info">Scheduled</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>10:00 AM</strong></td>
+                            <td>James Brown</td>
+                            <td>207</td>
+                            <td>Morphine</td>
+                            <td>2mg</td>
+                            <td>IV</td>
+                            <td><span class="badge badge-info">Scheduled</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Patient Monitoring and Quick Actions -->
+            <div class="dashboard-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Patient Monitoring</h3>
+                            <p class="card-content">Real-time patient status</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Stable Patients</span>
+                                <span>5/8</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #48bb78; height: 100%; width: 62.5%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Requires Monitoring</span>
+                                <span>3/8</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #ed8936; height: 100%; width: 37.5%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Today's Tasks</h3>
+                            <p class="card-content">Nursing care tasks</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="padding: 0.8rem; background: #c6f6d5; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #48bb78;">
+                            <strong>Completed:</strong> Wound dressing changes (6/8)
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
+                            <strong>In Progress:</strong> Patient education sessions
+                        </div>
+                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; border-left: 4px solid #f56565;">
+                            <strong>Pending:</strong> Discharge preparations (2)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Quick Actions</h3>
+                            <p class="card-content">Common nursing tasks</p>
+                        </div>
+                    </div>
+                    <div class="quick-actions" style="flex-direction: column; gap: 0.8rem;">
+                        <a href="#" class="btn btn-danger" style="width: 100%;">
+                            <i class="fas fa-exclamation-triangle"></i> Emergency Response
+                        </a>
+                        <a href="#" class="btn btn-warning" style="width: 100%;">
+                            <i class="fas fa-thermometer-half"></i> Record Vitals
+                        </a>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-pills"></i> Medication Admin
+                        </a>
+                        <a href="#" class="btn btn-success" style="width: 100%;">
+                            <i class="fas fa-clipboard-check"></i> Update Care Plan
+                        </a>
+                        <a href="#" class="btn btn-secondary" style="width: 100%;">
+                            <i class="fas fa-file-medical-alt"></i> Shift Report
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shift Handover Notes -->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Shift Handover Notes</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Room</th>
+                            <th>Condition</th>
+                            <th>Special Instructions</th>
+                            <th>Next Assessment</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Emily Davis</td>
+                            <td>202</td>
+                            <td>Post-Op Recovery</td>
+                            <td>Monitor surgical site, pain management</td>
+                            <td>10:00 AM</td>
+                            <td><span class="badge badge-warning">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td>Michael Johnson</td>
+                            <td>204</td>
+                            <td>Diabetes Management</td>
+                            <td>Blood glucose q4h, sliding scale insulin</td>
+                            <td>11:00 AM</td>
+                            <td><span class="badge badge-info">Low</span></td>
+                        </tr>
+                        <tr>
+                            <td>Anna Rodriguez</td>
+                            <td>206</td>
+                            <td>CHF Exacerbation</td>
+                            <td>Daily weights, I&O monitoring, restrict fluids</td>
+                            <td>09:30 AM</td>
+                            <td><span class="badge badge-danger">High</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.php';
+            }
+        });
+
+        // Emergency response button
+        document.querySelector('.btn-danger').addEventListener('click', function(e) {
+            if(this.textContent.includes('Emergency')) {
+                e.preventDefault();
+                alert('Emergency response protocol activated! Notifying medical team...');
+            }
+        });
+    </script>
+</body>
+</html>

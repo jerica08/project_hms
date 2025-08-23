@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Logs - HMS Admin</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .audit-filters {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 150px;
+        }
+        .filter-input {
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .audit-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid #3b82f6;
+        }
+        .stat-card.warning { border-left-color: #f59e0b; }
+        .stat-card.danger { border-left-color: #ef4444; }
+        .stat-card.success { border-left-color: #22c55e; }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        .logs-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .logs-header {
+            background: #f8fafc;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .log-entry {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.9rem;
+        }
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        .log-entry:hover {
+            background: #f8fafc;
+        }
+        .log-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1rem;
+        }
+        .log-icon.create { background: #dcfce7; color: #166534; }
+        .log-icon.update { background: #dbeafe; color: #1e40af; }
+        .log-icon.delete { background: #fecaca; color: #991b1b; }
+        .log-icon.login { background: #fef3c7; color: #92400e; }
+        .log-icon.logout { background: #e5e7eb; color: #374151; }
+        .log-icon.access { background: #e0e7ff; color: #3730a3; }
+        .log-icon.error { background: #fed7cc; color: #c2410c; }
+        .log-content {
+            flex: 1;
+        }
+        .log-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        .log-details {
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        .log-meta {
+            text-align: right;
+            color: #6b7280;
+            font-size: 0.8rem;
+            min-width: 120px;
+        }
+        .log-timestamp {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        .log-user {
+            font-size: 0.75rem;
+        }
+        .severity-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        .severity-low { background: #dcfce7; color: #166534; }
+        .severity-medium { background: #fef3c7; color: #92400e; }
+        .severity-high { background: #fed7cc; color: #c2410c; }
+        .severity-critical { background: #fecaca; color: #991b1b; }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        .page-btn {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .page-btn:hover {
+            background: #f3f4f6;
+        }
+        .page-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .export-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .log-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body class="admin-theme">
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i> HMS - Audit Logs</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <div>
+                    <div style="font-weight: 600;">Dr. Admin Smith</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Hospital Administrator</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-user-management.html" class="nav-link">
+                        <i class="fas fa-users nav-icon"></i>
+                        User Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar nav-icon"></i>
+                        Analytics & Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-system-settings.html" class="nav-link">
+                        <i class="fas fa-cogs nav-icon"></i>
+                        System Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-security.html" class="nav-link">
+                        <i class="fas fa-shield-alt nav-icon"></i>
+                        Security & Access
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-audit-logs.html" class="nav-link active">
+                        <i class="fas fa-clipboard-list nav-icon"></i>
+                        Audit Logs
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1 class="page-title">System Audit Logs</h1>
+
+            <!-- Audit Statistics -->
+            <div class="audit-stats">
+                <div class="stat-card">
+                    <div class="stat-number">2,847</div>
+                    <div class="stat-label">Total Events Today</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Warning Events</div>
+                </div>
+                <div class="stat-card danger">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Critical Events</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98.5%</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="audit-filters">
+                <h3 style="margin-bottom: 1rem;">Filter Audit Logs</h3>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <select class="filter-input" id="dateRange">
+                            <option value="today" selected>Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Event Type</label>
+                        <select class="filter-input" id="eventType">
+                            <option value="">All Events</option>
+                            <option value="login">Login/Logout</option>
+                            <option value="create">Create</option>
+                            <option value="update">Update</option>
+                            <option value="delete">Delete</option>
+                            <option value="access">Access</option>
+                            <option value="error">Errors</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>User</label>
+                        <input type="text" class="filter-input" placeholder="Search by user..." id="userFilter">
+                    </div>
+                    <div class="filter-group">
+                        <label>Severity</label>
+                        <select class="filter-input" id="severityFilter">
+                            <option value="">All Severities</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-primary" onclick="applyFilters()">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+                <div class="export-options">
+                    <button class="btn btn-success" onclick="exportLogs('csv')">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportLogs('pdf')">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                    <button class="btn btn-warning" onclick="archiveLogs()">
+                        <i class="fas fa-archive"></i> Archive Old Logs
+                    </button>
+                </div>
+            </div>
+
+            <!-- Audit Logs -->
+            <div class="logs-container">
+                <div class="logs-header">
+                    <h3>System Activity Log</h3>
+                    <button class="btn btn-secondary" onclick="refreshLogs()">
+                        <i class="fas fa-refresh"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="log-entry" onclick="showLogDetails('log1')">
+                    <div class="log-icon login">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">User Login</div>
+                        <div class="log-details">Dr. John Smith successfully logged in from IP 192.168.1.45</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">2 minutes ago</div>
+                        <div class="log-user">john.smith</div>
+                        <span class="severity-badge severity-low">Low</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log2')">
+                    <div class="log-icon update">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">Patient Record Updated</div>
+                        <div class="log-details">Patient ID: P-2024-0156 medical history updated by Dr. Johnson</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">5 minutes ago</div>
+                        <div class="log-user">dr.johnson</div>
+                        <span class="severity-badge severity-medium">Medium</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log3')">
+                    <div class="log-icon error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">Failed Login Attempt</div>
+                        <div class="log-details">Multiple failed login attempts from IP 203.45.67.89</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">8 minutes ago</div>
+                        <div class="log-user">unknown</div>
+                        <span class="severity-badge severity-high">High</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log4')">
+                    <div class="log-icon create">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">New User Created</div>
+                        <div class="log-details">New nurse account created: mary.wilson@hospital.com</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">12 minutes ago</div>
+                        <div class="log-user">admin</div>
+                        <span class="severity-badge severity-medium">Medium</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log5')">
+                    <div class="log-icon access">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">Permission Changed</div>
+                        <div class="log-details">User permissions updated for robert.wilson - added pharmacy access</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">15 minutes ago</div>
+                        <div class="log-user">admin</div>
+                        <span class="severity-badge severity-medium">Medium</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log6')">
+                    <div class="log-icon delete">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">Record Deleted</div>
+                        <div class="log-details">Temporary patient record P-TEMP-001 deleted after discharge</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">18 minutes ago</div>
+                        <div class="log-user">nurse.mary</div>
+                        <span class="severity-badge severity-low">Low</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log7')">
+                    <div class="log-icon error">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">System Error</div>
+                        <div class="log-details">Database connection timeout in laboratory module</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">22 minutes ago</div>
+                        <div class="log-user">system</div>
+                        <span class="severity-badge severity-critical">Critical</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log8')">
+                    <div class="log-icon update">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">Data Synchronization</div>
+                        <div class="log-details">Branch data sync completed successfully - North Branch</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">25 minutes ago</div>
+                        <div class="log-user">system</div>
+                        <span class="severity-badge severity-low">Low</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log9')">
+                    <div class="log-icon logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">User Logout</div>
+                        <div class="log-details">Dr. Sarah Brown logged out after 4 hours session</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">28 minutes ago</div>
+                        <div class="log-user">sarah.brown</div>
+                        <span class="severity-badge severity-low">Low</span>
+                    </div>
+                </div>
+
+                <div class="log-entry" onclick="showLogDetails('log10')">
+                    <div class="log-icon create">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-title">Medical Report Generated</div>
+                        <div class="log-details">Lab report generated for patient P-2024-0157 - Blood Test Results</div>
+                    </div>
+                    <div class="log-meta">
+                        <div class="log-timestamp">30 minutes ago</div>
+                        <div class="log-user">lab.tech</div>
+                        <span class="severity-badge severity-low">Low</span>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn" onclick="changePage('prev')">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn" onclick="changePage(2)">2</button>
+                    <button class="page-btn" onclick="changePage(3)">3</button>
+                    <button class="page-btn" onclick="changePage(4)">4</button>
+                    <button class="page-btn" onclick="changePage(5)">5</button>
+                    <button class="page-btn" onclick="changePage('next')">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Log Details Modal -->
+    <div id="logDetailsModal" class="log-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Log Entry Details</h2>
+                <button class="close-btn" onclick="closeLogDetails()">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            alert('Applying filters and refreshing logs...');
+        }
+
+        function exportLogs(format) {
+            alert(`Exporting audit logs as ${format.toUpperCase()}...`);
+        }
+
+        function archiveLogs() {
+            if(confirm('Archive logs older than 90 days? This action cannot be undone.')) {
+                alert('Archiving old logs...');
+            }
+        }
+
+        function refreshLogs() {
+            alert('Refreshing audit logs...');
+        }
+
+        function showLogDetails(logId) {
+            const modal = document.getElementById('logDetailsModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Sample detailed log information
+            const logDetails = {
+                log1: {
+                    title: 'User Login Event',
+                    content: `
+                        <p><strong>Event ID:</strong> EVT-2024-001234</p>
+                        <p><strong>Timestamp:</strong> 2024-08-23 19:48:00</p>
+                        <p><strong>User:</strong> Dr. John Smith (john.smith@hospital.com)</p>
+                        <p><strong>IP Address:</strong> 192.168.1.45</p>
+                        <p><strong>User Agent:</strong> Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</p>
+                        <p><strong>Session ID:</strong> sess_abc123def456</p>
+                        <p><strong>Location:</strong> Main Hospital - Cardiology Department</p>
+                        <p><strong>Status:</strong> Success</p>
+                        <p><strong>Additional Notes:</strong> Normal login procedure completed successfully.</p>
+                    `
+                },
+                log2: {
+                    title: 'Patient Record Update',
+                    content: `
+                        <p><strong>Event ID:</strong> EVT-2024-001235</p>
+                        <p><strong>Timestamp:</strong> 2024-08-23 19:45:00</p>
+                        <p><strong>User:</strong> Dr. Johnson (dr.johnson@hospital.com)</p>
+                        <p><strong>Patient ID:</strong> P-2024-0156</p>
+                        <p><strong>Record Type:</strong> Medical History</p>
+                        <p><strong>Fields Modified:</strong> Allergies, Current Medications</p>
+                        <p><strong>Previous Values:</strong> [Encrypted for privacy]</p>
+                        <p><strong>New Values:</strong> [Encrypted for privacy]</p>
+                        <p><strong>Reason:</strong> Updated allergy information after consultation</p>
+                    `
+                }
+            };
+
+            const details = logDetails[logId] || {
+                title: 'Log Entry Details',
+                content: '<p>Detailed information for this log entry would be displayed here.</p>'
+            };
+
+            document.getElementById('modalTitle').textContent = details.title;
+            modalContent.innerHTML = details.content;
+            modal.style.display = 'block';
+        }
+
+        function closeLogDetails() {
+            document.getElementById('logDetailsModal').style.display = 'none';
+        }
+
+        function changePage(page) {
+            if (page === 'prev' || page === 'next') {
+                alert(`Navigating to ${page} page...`);
+            } else {
+                alert(`Loading page ${page}...`);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('logDetailsModal');
+            if (e.target === modal) {
+                closeLogDetails();
+            }
+        });
+
+        // Auto-refresh logs every 30 seconds
+        setInterval(() => {
+            console.log('Auto-refreshing audit logs...');
+        }, 30000);
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.php';
+            }
+        });
+    </script>
+</body>
+</html>

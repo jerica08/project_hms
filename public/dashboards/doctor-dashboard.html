@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - HMS</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="doctor-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-user-md"></i> HMS - Doctor Portal</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">DR</div>
+                <div>
+                    <div style="font-weight: 600;">Dr. Sarah Johnson</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Cardiologist</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#patients" class="nav-link">
+                        <i class="fas fa-users nav-icon"></i>
+                        My Patients
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#appointments" class="nav-link">
+                        <i class="fas fa-calendar-alt nav-icon"></i>
+                        Appointments
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#prescriptions" class="nav-link">
+                        <i class="fas fa-prescription-bottle nav-icon"></i>
+                        Prescriptions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#lab-results" class="nav-link">
+                        <i class="fas fa-flask nav-icon"></i>
+                        Lab Results
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#ehr" class="nav-link">
+                        <i class="fas fa-file-medical nav-icon"></i>
+                        Electronic Health Records
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#schedule" class="nav-link">
+                        <i class="fas fa-clock nav-icon"></i>
+                        My Schedule
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <h1 class="page-title">Doctor Dashboard</h1>
+
+            <!-- Dashboard Overview Cards -->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Today's Appointments</h3>
+                            <p class="card-content">Scheduled patient visits</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Total</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Remaining</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">View Schedule</a>
+                        <a href="#" class="btn btn-success">Start Consultation</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Patient Records</h3>
+                            <p class="card-content">Access and update patient EHR</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">247</div>
+                            <div class="stat-label">Total Patients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">New This Week</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Critical</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">Search Patient</a>
+                        <a href="#" class="btn btn-secondary">Add New</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-prescription-bottle"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Prescriptions</h3>
+                            <p class="card-content">Create and manage prescriptions</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">34</div>
+                            <div class="stat-label">Today</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">156</div>
+                            <div class="stat-label">This Week</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-success">New Prescription</a>
+                        <a href="#" class="btn btn-secondary">View History</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Lab Results</h3>
+                            <p class="card-content">Review test results</p>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">New Results</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">23</div>
+                            <div class="stat-label">Pending Tests</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Critical</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-warning">Review Critical</a>
+                        <a href="#" class="btn btn-primary">Request Test</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Schedule -->
+            <div class="table-container">
+                <h3 style="margin-bottom: 1.5rem;">Today's Schedule</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Patient</th>
+                            <th>Type</th>
+                            <th>Condition</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:00 AM</td>
+                            <td>John Smith</td>
+                            <td>Follow-up</td>
+                            <td>Hypertension</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View Notes</a></td>
+                        </tr>
+                        <tr>
+                            <td>09:30 AM</td>
+                            <td>Maria Garcia</td>
+                            <td>Consultation</td>
+                            <td>Chest Pain</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View Notes</a></td>
+                        </tr>
+                        <tr>
+                            <td>10:00 AM</td>
+                            <td>Robert Johnson</td>
+                            <td>Check-up</td>
+                            <td>Routine</td>
+                            <td><span class="badge badge-warning">In Progress</span></td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Continue</a></td>
+                        </tr>
+                        <tr>
+                            <td>10:30 AM</td>
+                            <td>Emily Davis</td>
+                            <td>Follow-up</td>
+                            <td>Diabetes</td>
+                            <td><span class="badge badge-info">Scheduled</span></td>
+                            <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Start</a></td>
+                        </tr>
+                        <tr>
+                            <td>11:00 AM</td>
+                            <td>Michael Brown</td>
+                            <td>Consultation</td>
+                            <td>Heart Murmur</td>
+                            <td><span class="badge badge-info">Scheduled</span></td>
+                            <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Start</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Recent Activities and Alerts -->
+            <div class="dashboard-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Patient Alerts</h3>
+                            <p class="card-content">Important patient notifications</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
+                            <strong>Critical:</strong> Patient #1247 - Abnormal ECG results
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
+                            <strong>Urgent:</strong> Patient #1156 - Medication refill needed
+                        </div>
+                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
+                            <strong>Info:</strong> 3 lab results ready for review
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-danger">View Critical</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Quick Stats</h3>
+                            <p class="card-content">Your performance metrics</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Patient Satisfaction</span>
+                                <span>4.8/5</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #48bb78; height: 100%; width: 96%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>On-time Appointments</span>
+                                <span>92%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #4299e1; height: 100%; width: 92%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Documentation Complete</span>
+                                <span>88%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #ed8936; height: 100%; width: 88%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Quick Actions</h3>
+                            <p class="card-content">Common tasks</p>
+                        </div>
+                    </div>
+                    <div class="quick-actions" style="flex-direction: column; gap: 0.8rem;">
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-plus"></i> New Patient Record
+                        </a>
+                        <a href="#" class="btn btn-success" style="width: 100%;">
+                            <i class="fas fa-prescription"></i> Write Prescription
+                        </a>
+                        <a href="#" class="btn btn-warning" style="width: 100%;">
+                            <i class="fas fa-vial"></i> Order Lab Test
+                        </a>
+                        <a href="#" class="btn btn-secondary" style="width: 100%;">
+                            <i class="fas fa-calendar-plus"></i> Schedule Follow-up
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Patient Updates -->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Recent Patient Updates</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Last Visit</th>
+                            <th>Diagnosis</th>
+                            <th>Treatment Status</th>
+                            <th>Next Appointment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sarah Wilson</td>
+                            <td>Aug 19, 2025</td>
+                            <td>Atrial Fibrillation</td>
+                            <td><span class="badge badge-success">Stable</span></td>
+                            <td>Sep 2, 2025</td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View EHR</a></td>
+                        </tr>
+                        <tr>
+                            <td>David Lee</td>
+                            <td>Aug 18, 2025</td>
+                            <td>Coronary Artery Disease</td>
+                            <td><span class="badge badge-warning">Monitoring</span></td>
+                            <td>Aug 25, 2025</td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View EHR</a></td>
+                        </tr>
+                        <tr>
+                            <td>Lisa Anderson</td>
+                            <td>Aug 17, 2025</td>
+                            <td>Hypertension</td>
+                            <td><span class="badge badge-success">Controlled</span></td>
+                            <td>Sep 14, 2025</td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View EHR</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.php';
+            }
+        });
+    </script>
+</body>
+</html>
